@@ -112,7 +112,7 @@ export default handleActions({
         calendar: {
           ...state.calendar,
           selectedDayOfMonth: action.payload
-        }, //state.calendar.selectedDayOfMonth at filtering
+        }, 
       };
     }
     throw new Error('Day of month outside range');

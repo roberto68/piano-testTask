@@ -17,11 +17,3 @@ export default function todos(todos=init, action) {
       return todos;
   }
 }
-export const visibilityFilter = (state = 'ALL', action) => {
-  switch(action.type) {
-    case `FILTER`:
-      return action.filter
-    default:
-      return state
-  }
-}

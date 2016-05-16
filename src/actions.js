@@ -23,10 +23,3 @@ export function toggleTodo(id) {
     payload: id
   };
 }
-
-export function selectTodos(filter) {
-  return {
-    type: 'FILTER',
-    filter
-  };
-}

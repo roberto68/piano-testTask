@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 export function Todo(props) {
   const { todo } = props;
@@ -11,21 +11,16 @@ export function Todo(props) {
 
 export function TodoList(props) {
   const { todos, toggleTodo, addTodo } = props;
-
+  function isBigEnough(date) {
+    return value >= 10;
+  }
   const onSubmit = (event) => {
     const text = this.refs.text.value; // handle with refs
     const date = this.refs.date.value;
     addTodo(text, date);
-    // const isEnterKey = (event.which == 13);
-    // const isLongEnough = text.length > 0;
-    //
-    // if(isEnterKey && isLongEnough) {
-    //   text.value = '';
-    //   addTodo(text);
-    // }
   };
   const countDate = () => new Date.now(); // rly neccessary ??
-
+  const toggleClick = id => event => toggleTodo(id);
   return (
     <div className='todo'>
       <input type='text'
@@ -38,23 +33,14 @@ export function TodoList(props) {
              min={this.countDate} /><br></br>
       <input type="button" onClick={onSubmit} />
       <ul className='todo__list'>
-        {todos.map(t => 
-          <Todo
-           key={t.get('id')}
-           className='todo__item'
-           onClick={() => toggleClick(t.id)} >
-          </Todo>
-        )}
+        {todos.map(t => (
+          <li key={t.get('id')}
+              className='todo__item'
+              onClick={toggleClick(t.get('id'))}>
+            <Todo todo={t.toJS()} />
+          </li>
+        ))}
       </ul>
     </div>
   );
-}
-TodoList.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    //completed: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired
-    date: PropTypes.string.isRequired
-  }).isRequired).isRequired,
-  onTodoClick: PropTypes.func.isRequired
 }

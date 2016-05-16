@@ -2,8 +2,9 @@ import React from 'react';
 import Inflected from 'inflected';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux'
-
+import { Router, Route, Link, browserHistory } from 'react-router'
 import style from './DateBox.css';
+import todosGraph from './todosGraph';
 import {MONTH_NUM_TO_STRING} from '../constants';
 
 class DateBox extends React.Component {
@@ -13,11 +14,17 @@ class DateBox extends React.Component {
   }
   render () {
     return (
-      <div className={style.dateBoxContainer}>
-        {MONTH_NUM_TO_STRING[this.props.month]} {Inflected.ordinalize(this.props.day)}, {this.props.year}
-      </div>
+        <div>
+          <div>
+            <Link to={`/todosGraph`}>graph area of todos</Link>
+          </div>
+          <div className={style.dateBoxContainer}>
+            {MONTH_NUM_TO_STRING[this.props.month]} {Inflected.ordinalize(this.props.day)}, {this.props.year}
+          </div>
+        </div>
+
     );
-  }
+  } //todosGraph to be implemented
 }
 
 function mapStateToProps (state) {

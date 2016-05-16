@@ -7,6 +7,8 @@ import MdChevronLeft from 'react-icons/lib/md/chevron-left';
 import {prevMonth, nextMonth, selectDate } from '../actions';
 import style from './Calendar.css';
 import {DAYS_OF_WEEK} from '../constants';
+import todoList from '../TodoContainers';
+import { Router, Route, Link, browserHistory } from 'react-router';
 
 class Calendar extends React.Component {
   constructor (props, context) {
@@ -35,25 +37,28 @@ class Calendar extends React.Component {
     );
   }
   renderRow (row, i) {
-    return (
-      <tr key={i}>
-        {
-          row.map((date, j) => {
-            if (date) {
-              let tdClass = classNames({
-                [style.bodyTableDate]: true,
-                [style.selected]: date === this.props.calendar.selectedDayOfMonth
-              });
-              let boundClick = this.props.actions.selectDate.bind(null, date);
-              return <td key={j} className={tdClass} onClick={boundClick}>{date}</td>
-                  }
-            return <td key={j}></td>
-          })
-        }
-      </tr>
-    );
-  }
-}
+         return (
+           <tr key={i}>
+             {
+               row.map((date, j) => {
+                 if (date) {
+                   let tdClass = classNames({
+                     [style.bodyTableDate]: true,
+                     [style.selected]: date === this.props.calendar.selectedDayOfMonth
+                   });
+                    function boundClick (){
+                     this.props.actions.selectDate.bind(null, date),
+                    <Link to={`/TodoList}`}></Link>
+                    };
+                   return <td key={j} className={tdClass} onClick={boundClick}>{date}</td>
+                       }
+                 return <td key={j}></td>
+               })
+             }
+           </tr>
+         );
+       }
+} // this renders only todos for that day
 
 function mapStateToProps (state) {
   return { calendar: state.calendar };
@@ -64,7 +69,7 @@ function mapDispatchToProps (dispatch) {
     actions: bindActionCreators({
       prevMonth,
       nextMonth,
-      selectDate
+      selectDate //selectDate triggers selection rendering of todos for that day
     }, dispatch)
   };
 }

@@ -6,7 +6,7 @@ const reducers = combineReducers({
   todos,
   visibilityFilter,
   calendar
-})
+});
 
 const store = createStore(reducers);
 //const store = createStore(calendar);
